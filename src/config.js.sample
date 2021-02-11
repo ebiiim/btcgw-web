@@ -1,0 +1,12 @@
+export const cfg = {
+    "api": {
+        "ledgers": {
+            "server": "http://localhost:8080",
+            "baseUrl": "anchors",
+        },
+        "apikeys": {
+            "server": "http://localhost:8081",
+            "baseUrl": "apikeys",
+        },
+    },
+};
