@@ -6,7 +6,7 @@ export default function Header() {
           BBc-1 Ledger Explorer
         </h1>
         <h2 className="subtitle">
-          BBc-1 Ledger Subsystem with Bitcoin
+          BBc-1 Ledger Subsystem with Bitcoin Anchor
         </h2>
       </div>
     </header>
