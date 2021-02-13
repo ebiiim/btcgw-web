@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchAnchors } from "./api";
+import { fetchAnchors, fetchCreateAPIKey } from "./api";
 
 
 function Loading() {
@@ -133,8 +133,18 @@ export function SectionGetDomAndTx() {
 
 function GetAPIKey() {
   const [dom, setDom] = useState("");
+  const [apikey, setAPIKey] = useState(null);
+  useEffect(() => {
+    if (apikey && apikey.key) {
+      document.querySelector("#c").innerHTML = apikey.key;
+      document.querySelector("#m").classList.add("is-active");
+    }
+  });
   function handleClick() {
-    if (dom !== "" && tx !== "") window.location.href = `/ledgers/domains/${dom}/transactions/${tx}`
+    if (dom == "") return;
+    fetchCreateAPIKey(dom).then((apikey) => {
+      setAPIKey(apikey);
+    });
   }
   return (
     <section className="section">
@@ -148,7 +158,21 @@ function GetAPIKey() {
           <button className="button is-info" onClick={handleClick}>Get API Key</button>
         </div>
       </div>
-    </section>
+      <div id="m" className="modal">
+        <div className="modal-background"></div>
+        <div className="modal-card">
+          <header className="modal-card-head">
+            <p className="modal-card-title">API Key Generated</p>
+          </header>
+          <section className="modal-card-body">
+            <code id="c"></code>
+          </section>
+          <footer className="modal-card-foot">
+            <button onClick={() => { document.querySelector("#m").classList.remove("is-active"); setAPIKey(null); }} className="button is-success">Confirmed</button>
+          </footer>
+        </div>
+      </div>
+    </section >
   );
 }
 
@@ -164,7 +188,7 @@ export function SectionTopPage() {
       <div className="container">
         <div className="buttons is-centered">
           <button className="button is-link" onClick={() => window.location.href = `/ledgers`}>Find Ledger</button>
-          <button disabled className="button is-link is-outlined" onClick={() => window.location.href = `/apikeys`}>Get API Key </button>
+          <button className="button is-link is-outlined" onClick={() => window.location.href = `/apikeys`}>Get API Key</button>
         </div>
       </div>
     </section>

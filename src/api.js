@@ -16,6 +16,18 @@ export async function fetchAnchors(dom, tx) {
   return data;
 }
 
+export async function fetchCreateAPIKey(dom) {
+  const response = await fetch(
+    `${cfg.api.apikeys.server}${cfg.api.apikeys.baseUrl}/create`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ "bbc1dom": dom }),
+    },
+  );
+  return await response.json();
+}
+
 function unix2date(t) {
   var a = new Date(t * 1000);
   var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
