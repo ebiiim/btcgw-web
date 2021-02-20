@@ -39,11 +39,11 @@ function AnchorRecord(props) {
           <tbody>
             <tr>
               <td>BBc-1 Domain ID</td>
-              <td>{ar.anchor.bbc1dom}</td>
+              <td>{ar.anchor.domain}</td>
             </tr>
             <tr>
-              <td>BBc-1 Transaction</td>
-              <td>{ar.anchor.bbc1tx}</td>
+              <td>BBc-1 Digest</td>
+              <td>{ar.anchor.digest}</td>
             </tr>
             <tr>
               <td>Timestamp</td>
@@ -75,7 +75,7 @@ function AnchorRecord(props) {
 function GetAnchorRecord(props) {
   const [ar, setAR] = useState(null);
   useEffect(() => {
-    fetchAnchors(props.dom, props.tx).then((ar) => {
+    fetchAnchors(props.dom, props.dig).then((ar) => {
       setAR(ar);
     });
   }, []);
@@ -90,19 +90,19 @@ function GetAnchorRecord(props) {
 
 export function SectionAnchorRecord(props) {
   const dom = props.match.params.dom;
-  const tx = props.match.params.tx;
+  const dig = props.match.params.dig;
   return (
     <div>
-      <GetAnchorRecord dom={dom} tx={tx} />
+      <GetAnchorRecord dom={dom} dig={dig} />
     </div>
   )
 }
 
-function GetDomAndTx() {
+function GetDomAndDig() {
   const [dom, setDom] = useState("");
-  const [tx, setTx] = useState("");
+  const [dig, setDig] = useState("");
   function handleClick() {
-    if (dom !== "" && tx !== "") window.location.href = `/ledgers/domains/${dom}/transactions/${tx}`
+    if (dom !== "" && dig !== "") window.location.href = `/ledgers/domains/${dom}/digests/${dig}`
   }
   return (
     <section className="section">
@@ -114,7 +114,7 @@ function GetDomAndTx() {
         </div >
         <div className="field">
           <div className="control" >
-            <input onChange={(e) => setTx(e.target.value)} className="input is-primary" type="text" placeholder="BBc-1 Transaction ID"></input>
+            <input onChange={(e) => setDig(e.target.value)} className="input is-primary" type="text" placeholder="BBc-1 Digest"></input>
           </div>
         </div>
         <div className="buttons">
@@ -125,9 +125,9 @@ function GetDomAndTx() {
   );
 }
 
-export function SectionGetDomAndTx() {
+export function SectionGetDomAndDig() {
   return (
-    <GetDomAndTx />
+    <GetDomAndDig />
   )
 }
 

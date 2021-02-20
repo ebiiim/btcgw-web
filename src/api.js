@@ -1,9 +1,9 @@
 import { cfg } from "./config";
 
 
-export async function fetchAnchors(dom, tx) {
+export async function fetchAnchors(dom, dig) {
   const response = await fetch(
-    `${cfg.api.ledgers.server}${cfg.api.ledgers.baseUrl}/domains/${dom}/transactions/${tx}`
+    `${cfg.api.ledgers.server}${cfg.api.ledgers.baseUrl}/domains/${dom}/digests/${dig}`
   );
   const status = response.status;
   const data = await response.json();
