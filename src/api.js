@@ -22,7 +22,7 @@ export async function fetchCreateAPIKey(dom) {
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ "bbc1dom": dom }),
+      body: JSON.stringify({ "domain": dom }),
     },
   );
   return await response.json();
